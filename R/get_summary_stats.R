@@ -88,7 +88,7 @@ get_summary_stats <- function(
     full_summary(data)
   ) %>%
     dplyr::ungroup() %>%
-    dplyr::mutate_if(is.numeric, round, digits = 3)
+    dplyr::mutate_if(is.numeric, round, digits = 8)
 
   if(!is.null(show)){
     show <- unique(c("variable", "n", show))
