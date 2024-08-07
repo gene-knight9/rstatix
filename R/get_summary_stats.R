@@ -267,6 +267,15 @@ median_iqr <- function(data){
     )
 }
 
+q3_iqr <- function(data){
+  .value.  <- NULL
+  data %>%
+    dplyr::summarise(
+      q3 = stats::quantile(.value., 0.75, na.rm = TRUE),
+      iqr = stats::IQR(.value., na.rm=TRUE)
+    )
+}
+
 median_mad <- function(data){
   .value.  <- NULL
   data %>%
