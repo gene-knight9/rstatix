@@ -48,7 +48,7 @@ NULL
 #'@export
 get_summary_stats <- function(
   data, ..., type = c("full", "common", "robust",  "five_number",
-                      "mean_sd", "mean_se", "mean_ci", "median_iqr", "median_mad", "quantile",
+                      "mean_sd", "mean_se", "mean_ci", "median_iqr", "q3_iqr1.5", "median_mad", "quantile",
                       "mean", "median",  "min", "max" ),
   show = NULL, probs = seq(0, 1, 0.25)
   ){
@@ -80,6 +80,7 @@ get_summary_stats <- function(
     mean_ci = mean_ci(data),
     median_iqr = median_iqr(data),
     median_mad = median_mad(data),
+    q3_iqr1.5 = q3_iqr1.5(data),
     quantile = quantile_summary(data, probs),
     mean = mean_(data),
     median = median_(data),
@@ -267,12 +268,12 @@ median_iqr <- function(data){
     )
 }
 
-q3_iqr <- function(data){
+q3_iqr1.5 <- function(data){
   .value.  <- NULL
   data %>%
     dplyr::summarise(
       q3 = stats::quantile(.value., 0.75, na.rm = TRUE),
-      iqr = stats::IQR(.value., na.rm=TRUE)
+      iqr1.5 = stats::IQR(.value., na.rm=TRUE) * 1.5
     )
 }
 
